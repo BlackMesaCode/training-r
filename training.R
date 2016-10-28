@@ -146,12 +146,13 @@ frist_row_list = as.list(first_row) # we can convert it to a list, which support
 ####################################################################  data generation
 
 
-seq(1:100) # 1- 100
+s = seq(1:100) # 1- 100
 rep(5, 100) # repeat value 5   100 times -> 5 5 5 5 5 5 ....
+rev(s) # reverse
 
 help(sample)
 sample(48,6,T) # erstes argument: menge  # zweites element: anzahl der ziehungen aus dieser menge
-
+ # T = replacing , also gibt an, ob werte doppelt gezogen werden dürfen
 
 
 ####################################################################  analysing / debugging / help
@@ -165,7 +166,7 @@ sample(48,6,T) # erstes argument: menge  # zweites element: anzahl der ziehungen
 # ncol(x)	ncol(x) gibt Anzahl der Spalten in x an.
 # nrow(x)	nrow(x) gibt Anzahl der Zeilen in x an.
 # help()
-
+# ?names # == help(names)
 
 ####################################################################  unsorted / other useful functions
 
@@ -192,6 +193,22 @@ sample(48,6,T) # erstes argument: menge  # zweites element: anzahl der ziehungen
 # dir()
 # getwd() # print current working directory
 
+
+# plot ylim definiert sichtbarer y wertebereich
+# plot type "p" für scatter plot
+# plot mtext = margin text
+
+help(plot)
+# par()  definiert mehrere darstellungsbereiche für plots
+help(par)
+
+
+
+dev.off()  # reset plots
+
+# covariance sagt nur was über die richtung aus, aber die höhe des wertes hat wenig aussagekraft, da sie von den daten abhängt
+
+help(paste)
 
 ####################################################################  built in datasets
 
