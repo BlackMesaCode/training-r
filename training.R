@@ -25,11 +25,12 @@ is.integer(23L) # true
 
 ####################################################################  vectors
 
-v1 = c(1,2,3,4)
+v1 = c(1,2,3,4) # c stands for combine
 v2 = c("a", "b", "c")
 v3 = c(TRUE, TRUE, FALSE)
 
 v4 = c(1, "a", FALSE)  # heterogenous elements get converted to characters -> all vector elements must be of same type
+mode(v4) # character
 
 # selecting one element:
 v1_one = v1[2]
@@ -59,6 +60,9 @@ gender_factors_names = factor(genders, levels=c("F", "M", "B"), labels=c("Female
 # can contain varying types
 # can be accesses by name aka hashmap / associative array
 
+emptyList = list()
+emptyList$firstEntry = 1:10
+
 l1 = list(name = "Müller", age="50", country="Germany")
 l1["name"]
 l1$name
@@ -78,10 +82,15 @@ name_of_second_person = l2[[2]][[1]] # returns "Maier"
 ####################################################################  matrices
 
 # matrices are always two dimensional, whereas arrays can be multidimensional
+# all elements /columns must be of same datatype in comparison to dataframe
+
+emptyMatrix = matrix()
 
 data = c("a", "b", "c", "d", "e", "g")
 m1 = matrix(data, nrow = 2, ncol = 3, byrow = TRUE)
 
+length(m1) # Anzahl der Elemente in der Matrix: 6
+dim(m1) # row : cols
 
 # appending rows and columns
 person1 = c("Hans", 18)
@@ -90,8 +99,10 @@ person3 = c("Laura", 25)
 m2 = rbind(person1, person2)
 m2 = rbind(m2, person3) # we cann append additional rows with rbind and additional columns with cbind
 
-# naming columns, rowsand dimensions
+# naming columns and rows
 colnames(m2) = c("Name", "Age") # also works with rownames ..
+
+m2[1:4] == m2[c(1,2,3,4)]
 
 # selecting matrix[row, column]
 m2[1,] # selecting all columns of the first row
@@ -102,7 +113,14 @@ m2[c(1,2),] # select all columns from row 1 and 2
 
 # selection using colnames/rownames
 m2[,"Age"]
+# keine Dollar Notation bei Matrizen möglich
 
+
+
+a = matrix(2,3,3);
+b = matrix(3,3,3);
+a*b # Elementweises multiplizieren
+a%*%b # Matrizenmultiplikation
 
 ####################################################################  dataframes
 
@@ -116,6 +134,7 @@ power = c(300, 100, 140, 70)
 types = factor(c("PKW", "PKW", "PKW", "LKW")) # we can explicitly set data type even though factor gets implicitly set for charater values
 
 dataset = data.frame(brands, models, power, types)
+# stringsAsFactors = True (default)
 
 ncol(dataset) # 4
 nrow(dataset) # 4
@@ -143,15 +162,30 @@ first_row
 frist_row_list = as.list(first_row) # we can convert it to a list, which supports different data types
 
 
+# convert lists to dataframes
+
+as.data.frame(frist_row_list)
+
 ####################################################################  data generation
 
 
 s = seq(1:100) # 1- 100
-rep(5, 100) # repeat value 5   100 times -> 5 5 5 5 5 5 ....
+s2 = seq(1,100,2) # third argument: step size
+?seq # length.out = gewünsche endlänge der sequence
 rev(s) # reverse
+
+
+rep(5, 100) # repeat value 5   100 times -> 5 5 5 5 5 5 ....
+rep(1:4,2) # wiederholt 1-4  2 mal
+rep(1:4,each=2) # wiederholt jedes element zwischen 1-4  2 mal
+?rep
+
+LETTERS[1:4] # uppercase alphabet
+letters[1:4] # lowercase alphabet
 
 help(sample)
 sample(48,6,T) # erstes argument: menge  # zweites element: anzahl der ziehungen aus dieser menge
+sample(48,6,T, prob = c(1:48)) # mit prob kann man die wahrscheinlichkeit des auftretens eines elements festlegen
  # T = replacing , also gibt an, ob werte doppelt gezogen werden dürfen
 
 
@@ -215,5 +249,89 @@ help(paste)
 # http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html
 
 mtcars
+iris
+
+
+####################################################################  unsorted
+
+
+x=10
+rm(x) # remove variables
+
+# assignments work both directions
+z <- 10
+10 -> y
+
+# mode vs class
+
+
+history(10)
+
+
+# comprehensive r network ... package management
+install.packages("ggplot2")  # install package am besten über script ausführen, anstelle der IDE
+
+library(ggplot2) # load package
+library() # list all packages
+
+# attach / detach
+
+attach(iris)
+View(iris)
+iris$Petal.Width
+Petal.Width
+detach(iris)
+Petal.Width
+
+# Environment Variables
+
+Sys.getenv()
+
+# Print
+
+print(pi)
+print(pi, digits = 2)
+print(0.0001)
+
+# detach funktioniert sowohl für datensets als auch für package:
+detach(package:ggplot2)
+View(installed.packages())
+
+
+R.Version()
+
+
+# unterschied class mode
+class(installed.packages())
+mode(installed.packages()) # datentyp innerhalb der matrix / physischer speichertyp
+?mode
+
+
+# Vergleichsoperatoren lassen sich auf ganze Vektoren anwenden
+
+x = 1:10
+x
+y = x == 1
+y
+sum(y) # 1
+
+# Automatische Typkonvertierung
+
+
+# Elementweise Vergleichoperation
+
+x = 1:10
+any(x > 4)
+any(x > 10)
+
+
+# 
+
+x = 1:100
+y = 1:10
+
+?match
+match(x,y) # gibt vektor mit indizes zurück, für die elemente in y die in x enthalten sind
+x %in% y # gibt TRUE FALSE anstelle der index position zurück
 
 
