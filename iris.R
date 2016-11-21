@@ -27,3 +27,9 @@ points(petal.width*2, type="o", col="yellow", ylim=c(0,1))  # lines() or points(
   
 
 iris$Species
+
+
+plot(iris$Sepal.Length, iris$Sepal.Width, col=iris$Species, pch=as.numeric(iris$Species))
+
+
+
